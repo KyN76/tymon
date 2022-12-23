@@ -7,9 +7,10 @@ Tymon is a language tool which make HTTP request to Wiktionary and extract the e
 The name Tymon comes from 'etymon' which refers to a morpheme (linguistic unit) from which a  word is derived.
 
 ## Usage
-As a French tool, the default behavior is searching inside the French Wiktionary (Wikitionnaire).  
+As it was written for French words in the first place, the default behavior (without option) is searching inside the French Wiktionary (Wikitionnaire).  
+Command line options allow to search in the specified available languages.  
 
-Command to get the etymology of the word \<word\>,  
+To get the etymology of the word \<word\>,  
 - in French :  
 `tymon <word>`  
 or  
