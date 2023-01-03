@@ -10,7 +10,7 @@ The name Tymon comes from 'etymon' which refers to a morpheme (linguistic unit) 
 - Clone / download this repository
 - Set a line like this in your .bashrc / .zshrc or other :
 ```
-alias tymon='<path_to_the_cloned_repository>/tymon/main.py'
+alias tymon='python3 <path_to_the_cloned_repository>/tymon/main.py'
 ```
 - Reexecute the content of your .bashr / .zshrc / ... file, by opening another terminal or the command `source <file>`.
 
