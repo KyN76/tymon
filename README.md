@@ -7,7 +7,7 @@ Tymon is a language tool which make HTTP request to Wiktionary and extract the e
 The name Tymon comes from 'etymon' which refers to a morpheme (linguistic unit) from which a  word is derived.
 
 ## Installation
-- Clone this repository
+- Clone / download this repository
 - Set a line like this in your .bashrc / .zshrc or other :
 ```
 alias tymon='<path_to_the_cloned_repository>/tymon/main.py'
