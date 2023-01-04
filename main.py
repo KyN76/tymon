@@ -83,10 +83,7 @@ def pretty_print(etym_sections):
     print("")
 
 def extract_word(argv):
-    usage = "usage : tymon [ --fr | --en ] <mot>"
     options = ["--fr", "--en"]
-    if len(sys.argv) < 2:
-        print(usage)
     
     if argv[1] in options:
         try:
@@ -101,9 +98,15 @@ def extract_word(argv):
         word = argv[1]
         lang = "fr"
     return (word, lang)
-    
 
-if __name__ == "__main__":
+def usage():
+    print("usage : tymon [--en|--fr] <word>\n")
+    exit(1)
+
+def main():
+    if len(sys.argv) < 2:
+        usage()
+
     word, lang = extract_word(sys.argv)
     
     try :
@@ -113,3 +116,6 @@ if __name__ == "__main__":
         pretty_print(etym_sections)
     except AssertionError as e:
         print(f"\nPas de section étymologique pour le mot {word}.\n")
+
+if __name__ == "__main__":
+    main()

@@ -6,6 +6,9 @@ Tymon is a language tool which make HTTP request to Wiktionary and extract the e
 
 The name Tymon comes from 'etymon' which refers to a morpheme (linguistic unit) from which a  word is derived.
 
+## Requirements
+See `requirements.txt`.
+
 ## Installation
 - Clone / download this repository
 - Set a line like this in your .bashrc / .zshrc or other :
@@ -13,6 +16,7 @@ The name Tymon comes from 'etymon' which refers to a morpheme (linguistic unit) 
 alias tymon='python3 <path_to_the_cloned_repository>/tymon/main.py'
 ```
 - Reexecute the content of your .bashr / .zshrc / ... file, by opening another terminal or the command `source <file>`.
+- Download requirements if needed : `python3 -m pip install -r requirements.txt`.
 
 ## Usage
 As it was written for French words in the first place, the default behavior (without option) is searching inside the French Wiktionary (Wikitionnaire).  
