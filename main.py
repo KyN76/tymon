@@ -62,7 +62,7 @@ def is_etymological_descendant(desc, lang)->bool:
 def get_etymological_sections(h3_etym):
     etym_sections = []
     for ns in h3_etym.next_siblings:
-        if ns.name == "h3":
+        if ns.name == "h3" or ns.name == "h4":
             break
         elif ns.name == "p" and ns.text.strip() != "":
             etym_sections.append(ns)
