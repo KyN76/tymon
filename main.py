@@ -64,7 +64,7 @@ def get_etymological_sections(h3_etym):
     for ns in h3_etym.next_siblings:
         if ns.name == "h3":
             break
-        elif ns.text.strip() != "":
+        elif ns.name == "p" and ns.text.strip() != "":
             etym_sections.append(ns)
     return etym_sections
 
