@@ -46,14 +46,14 @@ def main():
 
     word, lang = parse_word(sys.argv)
     
-    # try :
-    parser = EtymologyParser()
-    parsed_html = parser.get_parsed_html(word)
-    h3_etym = parser.get_etymology_h3(parsed_html)
-    etym_sections = parser.get_etymological_sections(h3_etym)
-    pretty_print(etym_sections)
-    # except AssertionError as e:
-        # print(f"\nPas de section étymologique pour le mot {word}.\n")
+    try :
+        parser = EtymologyParser()
+        parsed_html = parser.get_parsed_html(word)
+        h3_etym = parser.get_etymology_h3(parsed_html)
+        etym_sections = parser.get_etymological_sections(h3_etym)
+        pretty_print(etym_sections)
+    except AssertionError as e:
+        print(f"\nPas de section étymologique pour le mot {word}.\n")
 
 if __name__ == "__main__":
     main()
