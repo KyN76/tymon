@@ -1,15 +1,16 @@
-import sys
 import pycurl
 import certifi
 import urllib.parse
 from bs4 import BeautifulSoup
 from io import BytesIO
+from abc import abstractmethod
+
 
 class EtymologyParser:
 
     def get_parsed_html(self, word:str):
         word = self.html_format_word(word)
-        url = "https://fr.wiktionary.org/wiki/" + word
+        url = self.get_wiki_base_url() + word
 
         # Creating a buffer as the cURL is not allocating a buffer for the network response
         buffer = BytesIO()
@@ -28,11 +29,18 @@ class EtymologyParser:
         #decoding the buffer 
         html = body.decode('utf-8')
         return BeautifulSoup(html, 'html.parser')
+    
+
+    @abstractmethod
+    def get_wiki_base_url(self):
+        pass
+
 
     def html_format_word(self, word:str):
         res = urllib.parse.quote(word.encode('utf-8'))
         return res
 
+    
     def get_etymology_h3(self, parsed_html):
         h3s = parsed_html.find_all("h3")
         for h3 in h3s:
@@ -50,17 +58,11 @@ class EtymologyParser:
                 continue
         return False
 
+    @abstractmethod
     def is_etymological_descendant(self, desc)->bool:
-        if desc.has_attr("class"):
-            return "titreetym" in desc["class"]
-        else:
-            return False
+        pass
 
+
+    @abstractmethod
     def get_etymological_sections(self, h3_etym):
-        etym_sections = []
-        for ns in h3_etym.next_siblings:
-            if ns.name == "h3":
-                break
-            elif ns.text.strip() != "":
-                etym_sections.append(ns)
-        return etym_sections
+        pass

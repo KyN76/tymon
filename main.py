@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 
 import sys
-from EtymologyParser import EtymologyParser
+from tymon.parser import *
+from tymon.french_parser import *
+
 
 def pretty_print(etym_sections):
     assert len(etym_sections) > 0, "Pas de section étymologique"
@@ -47,7 +49,7 @@ def main():
     word, lang = parse_word(sys.argv)
     
     try :
-        parser = EtymologyParser()
+        parser = FrenchEtymologyParser()
         parsed_html = parser.get_parsed_html(word)
         h3_etym = parser.get_etymology_h3(parsed_html)
         etym_sections = parser.get_etymological_sections(h3_etym)
