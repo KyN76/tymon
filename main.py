@@ -3,20 +3,7 @@
 import sys
 from tymon.parser import *
 from tymon.french_parser import *
-
-
-def pretty_print(etym_sections):
-    assert len(etym_sections) > 0, "Pas de section étymologique"
-    if len(etym_sections) == 1:
-        text = etym_sections[0].text
-        print("\n" + text)
-    
-    else:
-        for i,section in enumerate(etym_sections):
-            print(f"\n== {i+1} ==")
-            text = etym_sections[i].text
-            print(text)
-    print("")
+from tymon.english_parser import *
 
 
 def parse_word(argv):
@@ -47,15 +34,21 @@ def main():
         usage()
 
     word, lang = parse_word(sys.argv)
-    
-    try :
+    if lang == "fr":
         parser = FrenchEtymologyParser()
+    elif lang == "en":
+        parser = EnglishEtymologyParser()
+    else:
+        print("Unknown language")
+        usage()
+    try :
         parsed_html = parser.get_parsed_html(word)
         h3_etym = parser.get_etymology_h3(parsed_html)
         etym_sections = parser.get_etymological_sections(h3_etym)
-        pretty_print(etym_sections)
+        parser.pretty_print(etym_sections)
     except AssertionError as e:
-        print(f"\nPas de section étymologique pour le mot {word}.\n")
+        parser.print_not_found(word)
+
 
 if __name__ == "__main__":
     main()

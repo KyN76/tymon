@@ -29,11 +29,6 @@ class EtymologyParser:
         #decoding the buffer 
         html = body.decode('utf-8')
         return BeautifulSoup(html, 'html.parser')
-    
-
-    @abstractmethod
-    def get_wiki_base_url(self):
-        pass
 
 
     def html_format_word(self, word:str):
@@ -46,7 +41,7 @@ class EtymologyParser:
         for h3 in h3s:
             if self.is_etymological_h3(h3):
                 return h3
-        raise(AssertionError("Pas de section étymologique"))
+        raise(AssertionError("No etymology section"))
 
 
     def is_etymological_h3(self, h3)->bool:
@@ -57,6 +52,25 @@ class EtymologyParser:
             except:
                 continue
         return False
+    
+
+    def pretty_print(self, etym_sections):
+        assert len(etym_sections) > 0, "No etymology section"
+        if len(etym_sections) == 1:
+            text = etym_sections[0].text
+            print("\n" + text)
+        
+        else:
+            for i,section in enumerate(etym_sections):
+                print(f"\n== {i+1} ==")
+                text = etym_sections[i].text
+                print(text)
+        print("")
+
+
+    @abstractmethod
+    def get_wiki_base_url(self):
+        pass
 
     @abstractmethod
     def is_etymological_descendant(self, desc)->bool:
@@ -66,3 +80,8 @@ class EtymologyParser:
     @abstractmethod
     def get_etymological_sections(self, h3_etym):
         pass
+
+    @abstractmethod
+    def print_not_found(self, word:str):
+        pass
+        
