@@ -1,53 +1,32 @@
 #!/usr/bin/python3
 
-import sys
 from tymon.parser import *
 from tymon.french_parser import *
 from tymon.english_parser import *
-
-
-def parse_word(argv):
-    options = ["--fr", "--en"]
-    
-    if argv[1] in options:
-        try:
-            if argv[1] == "--fr":
-                lang = "fr"
-            elif argv[1] == "--en":
-                lang = "en"
-            word = argv[2]
-        except:
-            print(usage)
-    else:
-        word = argv[1]
-        lang = "fr"
-    return (word, lang)
-
-
-def usage():
-    print("usage : tymon [--en|--fr] <word>\n")
-    exit(1)
+import argparse
 
 
 def main():
-    if len(sys.argv) < 2:
-        usage()
+    parser = argparse.ArgumentParser(
+        description='Wiktionary etymology extractor for French and English words.',
+    )
+    parser.add_argument("word", help="Word to extract etymology")
+    parser.add_argument("--fr", dest="language", action="store_const", const="fr", help="Extract French etymology")
+    parser.add_argument("--en", dest="language", action="store_const", const="en", help="Extract English etymology")
+    args = parser.parse_args()
 
-    word, lang = parse_word(sys.argv)
-    if lang == "fr":
-        parser = FrenchEtymologyParser()
-    elif lang == "en":
-        parser = EnglishEtymologyParser()
-    else:
-        print("Unknown language")
-        usage()
+    if args.language == "fr" or args.language is None:
+        etymology_parser = FrenchEtymologyParser()
+    elif args.language == "en":
+        etymology_parser = EnglishEtymologyParser()
+
     try :
-        parsed_html = parser.get_parsed_html(word)
-        h3_etym = parser.get_etymology_h3(parsed_html)
-        etym_sections = parser.get_etymological_sections(h3_etym)
-        parser.pretty_print(etym_sections)
+        parsed_html = etymology_parser.get_parsed_html(args.word)
+        h3_etym = etymology_parser.get_etymology_h3(parsed_html)
+        etym_sections = etymology_parser.get_etymological_sections(h3_etym)
+        etymology_parser.pretty_print(etym_sections)
     except AssertionError as e:
-        parser.print_not_found(word)
+        etymology_parser.print_not_found(args.word)
 
 
 if __name__ == "__main__":
