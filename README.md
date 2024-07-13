@@ -1,5 +1,5 @@
 # Tymon
-Wiktionary etymology scrapper for French and English words.
+Wiktionary etymology scraper for French and English words.
 
 ## Introduction
 Tymon is a language tool which make HTTP request to Wiktionary and extract the etymology of a specified word. Every word with an etymology section in a Wiktionary page can be requested through Tymon.  
